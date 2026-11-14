@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Techfest IIT Bombay | Evolve Beyond Human</title>
+<meta name="description" content="Techfest, IIT Bombay: Asia’s largest science and technology festival. Enter the cyborg era.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#05070d;--fg:#e6f6ff;--muted:#8aa0b5;--cyan:#00e5ff;--mag:#ff2bd6;
+  --panel:rgba(10,18,32,.72);--line:rgba(0,229,255,.25);
+  --head:'Orbitron','Segoe UI',system-ui,sans-serif;--body:'Rajdhani','Segoe UI',system-ui,sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){
+    color-scheme:light;--bg:#eef6fb;--fg:#0a1626;--muted:#4b6075;--cyan:#0077a8;--mag:#c4009e;
+    --panel:rgba(255,255,255,.75);--line:rgba(0,119,168,.3);
+  }
+}
+:root[data-theme="light"]{color-scheme:light;--bg:#eef6fb;--fg:#0a1626;--muted:#4b6075;--cyan:#0077a8;--mag:#c4009e;--panel:rgba(255,255,255,.75);--line:rgba(0,119,168,.3)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:1.1rem;line-height:1.55;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+#net{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.7}
+.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:56px 56px;opacity:.18;mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 75%)}
+main,header,footer,section{position:relative;z-index:1}
+.wrap{width:min(1180px,92%);margin-inline:auto}
+#boot{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;transition:opacity .6s,visibility .6s}
+#boot.done{opacity:0;visibility:hidden}
+#boot pre{font-family:var(--head);font-size:clamp(.7rem,2.6vw,1rem);color:var(--cyan);margin:0;line-height:2;min-height:8em}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:var(--head);font-weight:900;letter-spacing:.12em;font-size:1rem}
+.logo b{color:var(--cyan)}
+.links{display:flex;gap:1.6rem;align-items:center}
+.links a{font-family:var(--head);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.links a:hover{color:var(--cyan)}
+.btn{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--head);font-weight:700;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;padding:.95rem 1.6rem;color:var(--bg);background:var(--cyan);
+  clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);border:0;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s}
+.btn:hover{transform:translateY(-2px);background:var(--mag);box-shadow:0 0 30px var(--mag)}
+.btn.ghost{background:transparent;color:var(--cyan);box-shadow:inset 0 0 0 1px var(--cyan)}
+.btn.ghost:hover{color:var(--bg);background:var(--cyan);box-shadow:0 0 30px var(--cyan)}
+.burger{display:none;background:none;border:1px solid var(--line);color:var(--cyan);width:42px;height:42px;font-size:1.3rem;cursor:pointer}
+.hero{min-height:100svh;display:grid;align-items:center;padding:110px 0 70px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center}
+.tag{display:inline-block;font-family:var(--head);font-size:.7rem;letter-spacing:.3em;color:var(--cyan);border:1px solid var(--line);padding:.45rem .9rem;margin-bottom:1.4rem;background:var(--panel)}
+h1{font-family:var(--head);font-weight:900;font-size:clamp(2.3rem,6.4vw,5rem);line-height:1.02;margin:0 0 1.2rem;letter-spacing:.02em}
+.glitch{position:relative;display:inline-block;color:var(--cyan)}
+.glitch::before,.glitch::after{content:attr(data-t);position:absolute;inset:0;clip-path:inset(0)}
+.glitch::before{color:var(--mag);transform:translate(3px,0);animation:gl 2.8s infinite steps(1)}
+.glitch::after{color:var(--fg);opacity:.6;transform:translate(-3px,0);animation:gl 3.4s infinite steps(1) reverse}
+@keyframes gl{0%,88%,100%{clip-path:inset(0 0 100% 0)}90%{clip-path:inset(10% 0 60% 0)}93%{clip-path:inset(55% 0 20% 0)}96%{clip-path:inset(80% 0 4% 0)}}
+.lead{max-width:34rem;color:var(--muted);font-size:1.25rem;margin:0 0 2rem}
+.rot{color:var(--mag);font-family:var(--head);font-size:.95rem;letter-spacing:.12em;min-height:1.6em;margin-bottom:1.6rem}
+.rot::after{content:"▌";animation:blink 1s infinite}
+@keyframes blink{50%{opacity:0}}
+.cta{display:flex;flex-wrap:wrap;gap:1rem}
+.eye{position:relative;width:min(440px,86vw);aspect-ratio:1;margin-inline:auto}
+.eye svg{width:100%;height:100%;overflow:visible}
+.r1{transform-origin:200px 200px;animation:spin 24s linear infinite}
+.r2{transform-origin:200px 200px;animation:spin 16s linear infinite reverse}
+.r3{transform-origin:200px 200px;animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.scan{animation:scan 3.2s ease-in-out infinite}
+@keyframes scan{0%,100%{transform:translateY(-70px)}50%{transform:translateY(70px)}}
+.pupil{transform-origin:200px 200px;animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.18)}}
+.chip{position:absolute;font-family:var(--head);font-size:.62rem;letter-spacing:.14em;color:var(--cyan);background:var(--panel);border:1px solid var(--line);padding:.4rem .7rem;animation:float 5s ease-in-out infinite}
+.chip:nth-of-type(2){top:8%;left:-2%}
+.chip:nth-of-type(3){bottom:14%;right:-2%;animation-delay:-2s;color:var(--mag)}
+.chip:nth-of-type(4){bottom:2%;left:6%;animation-delay:-3.5s}
+@keyframes float{50%{transform:translateY(-10px)}}
+section.blk{padding:90px 0}
+.sec-h{font-family:var(--head);font-weight:900;font-size:clamp(1.6rem,4vw,2.8rem);margin:0 0 .6rem}
+.sec-h span{color:var(--cyan)}
+.sub{color:var(--muted);max-width:40rem;margin:0 0 2.8rem}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.stat{background:var(--panel);padding:1.8rem 1rem;text-align:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.stat b{display:block;font-family:var(--head);font-size:clamp(1.5rem,3.4vw,2.4rem);color:var(--cyan)}
+.stat small{color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-size:.78rem}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.card{position:relative;background:var(--panel);border:1px solid var(--line);padding:1.8rem;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:border-color .3s,box-shadow .3s;transform-style:preserve-3d;will-change:transform;
+  clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,22px 100%,0 calc(100% - 22px))}
+.card:hover{border-color:var(--cyan);box-shadow:0 0 40px -10px var(--cyan)}
+.card .ic{font-size:2rem;margin-bottom:.8rem;display:block}
+.card h3{font-family:var(--head);font-size:1.05rem;letter-spacing:.06em;margin:0 0 .5rem}
+.card p{color:var(--muted);margin:0 0 1rem}
+.card .id{font-family:var(--head);font-size:.65rem;color:var(--mag);letter-spacing:.2em}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;counter-reset:s;position:relative}
+.step{border-top:2px solid var(--cyan);padding:1.2rem 0 0;position:relative}
+.step::before{counter-increment:s;content:"0" counter(s);font-family:var(--head);font-size:2.4rem;font-weight:900;color:transparent;-webkit-text-stroke:1px var(--cyan);display:block;margin-bottom:.4rem}
+.step h4{font-family:var(--head);margin:0 0 .4rem;letter-spacing:.08em}
+.step p{margin:0;color:var(--muted)}
+.final{text-align:center;border:1px solid var(--line);background:var(--panel);padding:clamp(2rem,6vw,4.5rem) 1.4rem;position:relative;overflow:hidden;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.final::before{content:"";position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent,var(--cyan),transparent 30%);opacity:.08;animation:spin 12s linear infinite}
+.final>*{position:relative}
+.final .cta{justify-content:center}
+footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--muted);font-size:.95rem;background:var(--panel)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between}
+.rv{opacity:0;transform:translateY(34px);transition:opacity .8s,transform .8s}
+.rv.in{opacity:1;transform:none}
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr;text-align:center}
+  .lead{margin-inline:auto}.cta{justify-content:center}
+  .eye{order:-1;width:min(300px,74vw)}
+  .cards{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .burger{display:block}
+  .links{position:absolute;top:calc(100% + 0px);left:0;right:0;flex-direction:column;padding:1.2rem;background:var(--bg);border-bottom:1px solid var(--line);display:none}
+  .links.open{display:flex}
+  .cards,.steps{grid-template-columns:1fr}
+  .chip{display:none}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="boot"><pre id="bootTxt"></pre></div>
+<canvas id="net"></canvas>
+<div class="grid-bg"></div>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="logo">TECH<b>FEST</b> // IITB</a>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
+    <div class="links" id="links">
+      <a href="#about">System</a>
+      <a href="#modules">Modules</a>
+      <a href="#protocol">Protocol</a>
+      <a href="https://techfest.org" target="_blank" rel="noopener" class="btn" style="padding:.7rem 1.2rem">Register</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+  <header class="hero">
+    <div class="wrap">
+      <div>
+        <span class="tag">// IIT BOMBAY · SCIENCE &amp; TECH FESTIVAL</span>
+        <h1>EVOLVE <span class="glitch" data-t="BEYOND">BEYOND</span> HUMAN</h1>
+        <div class="rot" id="rot"></div>
+        <p class="lead">Techfest, IIT Bombay is Asia’s largest science and technology festival. Step into an era where biology meets circuitry, and ideas upgrade into reality.</p>
+        <div class="cta">
+          <a class="btn" href="https://techfest.org" target="_blank" rel="noopener">Initiate Upgrade ➜</a>
+          <a class="btn ghost" href="#modules">Explore Modules</a>
+        </div>
+      </div>
+      <div class="eye" aria-hidden="true">
+        <svg viewBox="0 0 400 400">
+          <defs>
+            <radialGradient id="ir" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="#ff2bd6"/><stop offset=".45" stop-color="#7a00ff"/><stop offset="1" stop-color="#00e5ff"/>
+            </radialGradient>
+            <filter id="gw"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <clipPath id="cp"><circle cx="200" cy="200" r="86"/></clipPath>
+          </defs>
+          <g class="r3" fill="none" stroke="#00e5ff" stroke-opacity=".5">
+            <circle cx="200" cy="200" r="190" stroke-dasharray="3 9"/>
+            <circle cx="200" cy="200" r="176" stroke-dasharray="60 20 6 20"/>
+          </g>
+          <g class="r1" fill="none" stroke="#00e5ff" stroke-width="3" filter="url(#gw)">
+            <path d="M200 40 A160 160 0 0 1 360 200"/><path d="M200 360 A160 160 0 0 1 40 200"/>
+          </g>
+          <g class="r2" fill="none" stroke="#ff2bd6" stroke-width="2" filter="url(#gw)">
+            <path d="M60 120 A150 150 0 0 1 150 55"/><path d="M340 280 A150 150 0 0 1 250 345"/>
+            <circle cx="200" cy="200" r="128" stroke-dasharray="2 8" stroke-opacity=".7"/>
+          </g>
+          <circle cx="200" cy="200" r="100" fill="#05070d" stroke="#00e5ff" stroke-width="2" filter="url(#gw)"/>
+          <circle cx="200" cy="200" r="86" fill="url(#ir)"/>
+          <g class="pupil"><circle cx="200" cy="200" r="30" fill="#05070d"/><circle cx="200" cy="200" r="10" fill="#00e5ff" filter="url(#gw)"/></g>
+          <g clip-path="url(#cp)"><rect class="scan" x="110" y="198" width="180" height="4" fill="#fff" opacity=".8" filter="url(#gw)"/></g>
+          <g stroke="#00e5ff" stroke-width="2" opacity=".8">
+            <path d="M200 8v22M200 370v22M8 200h22M370 200h22"/>
+          </g>
+        </svg>
+        <span class="chip">SCAN: 100%</span>
+        <span class="chip">NEURAL LINK: ACTIVE</span>
+        <span class="chip">AUGMENT v2.0</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="blk" id="about">
+    <div class="wrap">
+      <h2 class="sec-h rv">SYSTEM <span>DIAGNOSTICS</span></h2>
+      <p class="sub rv">Years of innovation, competitions, lectures and exhibitions, all running on one integrated platform for curious minds.</p>
+      <div class="stats rv">
+        <div class="stat"><b data-n="100" data-s="%">0</b><small>Student Driven</small></div>
+        <div class="stat"><b data-n="24" data-s="/7">0</b><small>Innovation Mode</small></div>
+        <div class="stat"><b data-n="6" data-s="+">0</b><small>Core Verticals</small></div>
+        <div class="stat"><b data-n="1" data-s="st">0</b><small>In Asia, Tech Fests</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk" id="modules">
+    <div class="wrap">
+      <h2 class="sec-h rv">UPGRADE <span>MODULES</span></h2>
+      <p class="sub rv">Pick your augmentation. Each module is built to push limits and reward bold engineering.</p>
+      <div class="cards">
+        <article class="card rv"><span class="ic">🤖</span><span class="id">MOD_01</span><h3>ROBOTICS ARENA</h3><p>Autonomous bots, precision control and head-to-head combat engineering.</p><a href="https://techfest.org" target="_blank" rel="noopener" class="id">ACCESS ➜</a></article>
+        <article class="card rv"><span class="ic">🧠</span><span class="id">MOD_02</span><h3>NEURAL HACKATHON</h3><p>Build AI that sees, speaks and reasons. Ship a working prototype under pressure.</p><a href="https://techfest.org" target="_blank" rel="noopener" class="id">ACCESS ➜</a></article>
+        <article class="card rv"><span class="ic">🛡️</span><span class="id">MOD_03</span><h3>CYBER SIEGE</h3><p>Capture-the-flag battles, exploit hunting and digital defense challenges.</p><a href="https://techfest.org" target="_blank" rel="noopener" class="id">ACCESS ➜</a></article>
+        <article class="card rv"><span class="ic">🎤</span><span class="id">MOD_04</span><h3>VISIONARY LECTURES</h3><p>Hear from pioneers shaping science, space, medicine and machine intelligence.</p><a href="https://techfest.org" target="_blank" rel="noopener" class="id">ACCESS ➜</a></article>
+        <article class="card rv"><span class="ic">🧬</span><span class="id">MOD_05</span><h3>FUTURE EXPO</h3><p>Hands-on exhibitions of bionics, drones, wearables and next-gen prototypes.</p><a href="https://techfest.org" target="_blank" rel="noopener" class="id">ACCESS ➜</a></article>
+        <article class="card rv"><span class="ic">🛠️</span><span class="id">MOD_06</span><h3>BUILD WORKSHOPS</h3><p>Learn by building: embedded systems, ML pipelines, 3D printing and more.</p><a href="https://techfest.org" target="_blank" rel="noopener" class="id">ACCESS ➜</a></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk" id="protocol">
+    <div class="wrap">
+      <h2 class="sec-h rv">UPGRADE <span>PROTOCOL</span></h2>
+      <p class="sub rv">Four steps from human to enhanced.</p>
+      <div class="steps">
+        <div class="step rv"><h4>REGISTER</h4><p>Create your profile and sync with the Techfest network.</p></div>
+        <div class="step rv"><h4>COMPETE</h4><p>Enter events solo or deploy your squad.</p></div>
+        <div class="step rv"><h4>LEARN</h4><p>Absorb knowledge from talks, workshops and mentors.</p></div>
+        <div class="step rv"><h4>EVOLVE</h4><p>Win, network and carry the upgrade back to your campus.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <div class="wrap">
+      <div class="final rv">
+        <h2 class="sec-h">READY TO <span>BOOT UP?</span></h2>
+        <p class="sub" style="margin-inline:auto">Join thousands of innovators converging at IIT Bombay. The future does not wait, so install your upgrade now.</p>
+        <div class="cta">
+          <a class="btn" href="https://techfest.org" target="_blank" rel="noopener">Join Techfest ➜</a>
+          <button class="btn ghost" id="theme">Toggle Visor</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© Techfest, IIT Bombay · Campus Ambassador concept page</span>
+    <a href="https://techfest.org" target="_blank" rel="noopener">techfest.org</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var lines=["> INITIALIZING CYBORG CORE...","> LOADING NEURAL INTERFACE...","> SYNCING WITH IIT BOMBAY GRID...","> SYSTEM ONLINE ✔"];
+  var bt=document.getElementById('bootTxt'),boot=document.getElementById('boot'),i=0;
+  function step(){
+    if(i<lines.length){bt.textContent+=lines[i++]+"\n";setTimeout(step,380)}
+    else setTimeout(function(){boot.classList.add('done')},450)
+  }
+  step();
+
+  var words=["Robotics. AI. Cyber. Bionics.","Where code meets carbon.","Upgrade your imagination.","Built by students. Powered by ideas."],wi=0,ci=0,del=false,rot=document.getElementById('rot');
+  function type(){
+    var w=words[wi];
+    rot.textContent=w.slice(0,ci);
+    if(!del&&ci<w.length){ci++;setTimeout(type,60)}
+    else if(!del){del=true;setTimeout(type,1500)}
+    else if(ci>0){ci--;setTimeout(type,30)}
+    else{del=false;wi=(wi+1)%words.length;setTimeout(type,300)}
+  }
+  type();
+
+  document.getElementById('burger').onclick=function(){document.getElementById('links').classList.toggle('open')};
+  document.querySelectorAll('#links a').forEach(function(a){a.addEventListener('click',function(){document.getElementById('links').classList.remove('open')})});
+
+  var root=document.documentElement;
+  document.getElementById('theme').onclick=function(){
+    var dark=getComputedStyle(root).colorScheme==='dark';
+    root.setAttribute('data-theme',dark?'light':'dark');
+  };
+
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        e.target.querySelectorAll&&e.target.querySelectorAll('[data-n]').forEach(count);
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:.15});
+  document.querySelectorAll('.rv').forEach(function(el,k){el.style.transitionDelay=(k%3)*90+'ms';io.observe(el)});
+
+  function count(el){
+    var n=+el.dataset.n,s=el.dataset.s||'',t=0;
+    var id=setInterval(function(){
+      t+=Math.max(1,Math.ceil(n/40));
+      if(t>=n){t=n;clearInterval(id)}
+      el.textContent=t+s;
+    },35);
+  }
+
+  document.querySelectorAll('.card').forEach(function(c){
+    c.addEventListener('mousemove',function(e){
+      var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      c.style.transform='perspective(700px) rotateX('+(-y*8)+'deg) rotateY('+(x*8)+'deg) translateY(-4px)';
+    });
+    c.addEventListener('mouseleave',function(){c.style.transform=''});
+  });
+
+  var cv=document.getElementById('net'),cx=cv.getContext('2d'),W,H,pts=[],mouse={x:-999,y:-999};
+  function size(){
+    var d=Math.min(window.devicePixelRatio||1,2);
+    W=cv.width=innerWidth*d;H=cv.height=innerHeight*d;cx.setTransform(d,0,0,d,0,0);W=innerWidth;H=innerHeight;
+    var n=Math.min(90,Math.floor(W*H/17000));
+    pts=[];for(var k=0;k<n;k++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35});
+  }
+  size();addEventListener('resize',size);
+  addEventListener('pointermove',function(e){mouse.x=e.clientX;mouse.y=e.clientY});
+  function color(){return getComputedStyle(root).getPropertyValue('--cyan').trim()||'#00e5ff'}
+  var col=color();
+  setInterval(function(){col=color()},1500);
+  function draw(){
+    cx.clearRect(0,0,W,H);
+    for(var a=0;a<pts.length;a++){
+      var p=pts[a];p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>W)p.vx*=-1;
+      if(p.y<0||p.y>H)p.vy*=-1;
+      cx.fillStyle=col;cx.globalAlpha=.8;cx.fillRect(p.x-1,p.y-1,2,2);
+      for(var b=a+1;b<pts.length;b++){
+        var q=pts[b],dx=p.x-q.x,dy=p.y-q.y,d=dx*dx+dy*dy;
+        if(d<14000){cx.globalAlpha=(1-d/14000)*.35;cx.strokeStyle=col;cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(q.x,q.y);cx.stroke()}
+      }
+      var mx=p.x-mouse.x,my=p.y-mouse.y,md=mx*mx+my*my;
+      if(md<24000){cx.globalAlpha=(1-md/24000)*.7;cx.strokeStyle='#ff2bd6';cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(mouse.x,mouse.y);cx.stroke()}
+    }
+    requestAnimationFrame(draw);
+  }
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches)draw();
+})();
+</script>
+</body>
+</html>
